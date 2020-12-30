@@ -1,0 +1,87 @@
+<div class="container mt-5 mb-2">
+  <div class="card login-card">
+    <div class="row no-gutters">
+      <div class="col-md-5">
+        <img src="/assets/login.jpg" alt="image" class="login-card-image" />
+      </div>
+      <div class="col-md-7">
+        <div class="card-body">
+          <div class="brand-wrapper">
+            <img src="/assets/logo.png" alt="logo" class="logo" />
+            <h4 class="pl-2">Twitter Clone</h4>
+          </div>
+          <p class="font-italic">Sign into your account</p>
+          <form [formGroup]="LoginForm" (ngSubmit)="submit()">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="Email address"
+                required
+                [ngClass]="{
+                  'is-valid': email && email.valid,
+                  'is-invalid':
+                    email && email.errors && (email.dirty || email.touched)}"/>
+            </div>
+
+            <div *ngIf="email && email.invalid && (email.dirty || email.touched)" class="text-danger">
+              <div *ngIf="email && email.errors?.required">
+                The email is required
+              </div>
+              <div *ngIf="email && email.errors?.email">
+                Invailid format for email<span *ngIf="email.errors?.minlength || email.errors?.maxlength">, the email must be at least 4 chracters and at most 32</span>
+              </div>
+              <div *ngIf="email && !email.errors?.email && (email.errors?.minlength || email.errors?.maxlength)">
+                The email must be at least 4 chracters and at most 32
+              </div>
+            </div>
+
+            <div class="form-group mt-1">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                formControlName="password"
+                placeholder="Password"
+                required
+                [ngClass]="{
+                  'is-valid': password && password.valid,
+                  'is-invalid': password && password.errors && (password.dirty || password.touched)}"/>
+              </div>
+
+              <div *ngIf="password && password.invalid && (password.dirty || password.touched) " class="text-danger">
+                <div *ngIf="password && password.errors?.required">
+                  The password is required
+                </div>
+                <div *ngIf="password && (password.errors?.minlength || password.errors?.maxlength)">
+                  The password must be at least 4 chracters and at most 32
+                </div>
+              </div>
+            
+            <p *ngIf="httpError.length > 0" class="text-danger">
+              <i class="fas fa-exclamation-circle"></i> {{ httpError }}
+            </p>
+
+            <button [disabled]="!LoginForm.valid" type="submit" class="btn btn-dark btn-lg btn-block mt-4">
+              Login <i class="fas fa-sign-in-alt"></i>
+            </button>
+          </form>
+
+          <div class="mt-3">
+            <a href="#!" class="forgot-password-link">Forgot your password?</a>
+            <p class="login-card-footer-text">
+              Don't have an account?
+              <a href="#!" routerLink="/register">Register here</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

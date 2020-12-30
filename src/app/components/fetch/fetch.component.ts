@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { RestService } from 'src/app/services/rest.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-fetch',
@@ -9,13 +9,13 @@ import { RestService } from 'src/app/services/rest.service';
 })
 export class FetchComponent implements OnInit {
 
-  constructor(private rest : RestService) { }
+  constructor(private userService : UserService) { }
   showPassword : boolean[] = [];
 
   users : User[] = [];
   
   ngOnInit(): void {
-    this.rest.getAllUsers().subscribe(
+    this.userService.getAllUsers().subscribe(
       (resp) =>{        
         this.users = resp;
 

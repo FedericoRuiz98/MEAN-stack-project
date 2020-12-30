@@ -1,0 +1,149 @@
+<div class="container mt-5 mb-2">
+    <div class="card login-card">
+      <div class="row no-gutters">
+        <div class="col-md-5">
+          <img src="/assets/register.jpg" alt="image" class="login-card-image" />
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <div class="brand-wrapper">
+              <img src="/assets/logo.png" alt="logo" class="logo" />
+              <h4 class="pl-2">Twitter Clone</h4>
+            </div>
+            <p class="font-italic">Register your New account</p>
+            <form [formGroup]="registerForm" (ngSubmit)="submit()">
+                <div class="form-group" formGroupName="username">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="name">Name</label>
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          formControlName="name"
+                          class="form-control"
+                          placeholder="name"
+                          [ngClass]="{
+                            'is-valid': name && name.valid,
+                            'is-invalid': name && name.errors && (name.dirty || name.touched)}"/>
+                        <div *ngIf="name && name.invalid && (name.dirty || name.touched) " class="text-danger">
+                            <div *ngIf="name && name.errors?.required">
+                                The Name is required
+                            </div>
+                            <div *ngIf="name && (name.errors?.minlength || name.errors?.maxlength)">
+                                The Name must be between 4-32 chracters
+                            </div>
+                        </div>
+                      </div>                      
+
+                      <div class="col-md-6">
+                        <label for="surname">Surname</label>
+                        <input
+                          type="text"
+                          name="surname"
+                          id="surname"
+                          formControlName="surname"
+                          class="form-control"
+                          placeholder="surname"
+                          [ngClass]="{
+                            'is-valid': surname && surname.valid,
+                            'is-invalid': surname && surname.errors && (surname.dirty || surname.touched)}"/>
+                        <div *ngIf="surname && surname.invalid && (surname.dirty || surname.touched) " class="text-danger">
+                            <div *ngIf="surname && surname.errors?.required">
+                                The Surname is required
+                            </div>
+                            <div *ngIf="surname && (surname.errors?.minlength || surname.errors?.maxlength)">
+                                The Surname must be between 4-32 chracters
+                            </div>
+                        </div>
+                      </div>                      
+                    </div>
+                </div>
+      
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                      type="email"
+                      name="email"
+                      id="email"
+                      formControlName="email"
+                      class="form-control"
+                      placeholder="Email address"
+                      [ngClass]="{
+                        'is-valid': email && email.valid,
+                        'is-invalid': email && email.errors && (email.dirty || email.touched)}"/>
+                </div>
+
+                <div *ngIf="email && email.invalid && (email.dirty || email.touched)" class="text-danger">
+                    <div *ngIf="email && email.errors?.required">
+                      The email is required
+                    </div>
+                    <div *ngIf="email && email.errors?.email">
+                      Invailid format for email<span *ngIf="email.errors?.minlength || email.errors?.maxlength">, the email must be between 4-32 chracters</span>
+                    </div>
+                    <div *ngIf="email && !email.errors?.email && (email.errors?.minlength || email.errors?.maxlength)">
+                      The email must be between 4-32 chracters
+                    </div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="password">Password</label>
+                            <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            formControlName="password"
+                            class="form-control"
+                            placeholder="Password"
+                            [(ngModel)]="passwordI"
+                            [ngClass]="{
+                                'is-valid': password && password.valid && passwordI === passwordConfirmI,
+                                'is-invalid': password && password.errors && (password.dirty || password.touched) }"/>                            
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="ConfirmPassword">Confirm Password</label>
+                            <input
+                            type="password"
+                            name="ConfirmPassword"
+                            id="ConfirmPassword"
+                            formControlName="confirmPassword"
+                            class="form-control"
+                            placeholder="Confirm Password"
+                            [(ngModel)]="passwordConfirmI"
+                            [ngClass]="{
+                                'is-valid': confirmPassword && confirmPassword.valid && passwordI === passwordConfirmI,
+                                'is-invalid': confirmPassword && confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)}"/>                            
+                        </div>
+                    </div>
+
+                    <div *ngIf="password && confirmPassword && (password.invalid || confirmPassword.invalid) || (password.dirty || password.touched || confirmPassword.touched) " class="text-danger">
+                        <div *ngIf="password && confirmPassword && (password.errors?.minlength || password.errors?.maxlength || confirmPassword.errors?.minlength || confirmPassword.errors?.maxlength)">
+                            The passwords must be between 4-32 chracters
+                        </div>
+                    </div>                                     
+
+                    <div class="mt-1" *ngIf="confirmPassword && confirmPassword.touched">
+                        <div *ngIf="(passwordI !== passwordConfirmI)" class="text-danger">
+                            <i class="fas fa-exclamation-circle"></i> The passwords are not the same
+                        </div>
+                    </div>
+                </div>
+              <button [disabled]="!(registerForm.valid && passwordI === passwordConfirmI)" type="submit" class="btn btn-dark btn-lg btn-block mt-4">
+                Register <i class="fas fa-sign-in-alt"></i>
+              </button>
+            </form>
+  
+            <div class="mt-3">
+                <p class="login-card-footer-text">
+                  Do you have an account?
+                  <a href="#!" routerLink="/login">Login here</a>
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

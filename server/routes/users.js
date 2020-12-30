@@ -3,6 +3,7 @@ const router = express.Router();
 
 const User = require('../models/user')
 
+
 //getAll
 router.get('', function(req, res){
     User.find({}, (error,usersFound)=>{
@@ -21,5 +22,19 @@ router.get('/:id',(req,resp)=>{
         }
     });
 });
+
+//getOneByEmail
+router.get('/email/:email',(req,resp)=>{
+    const userEmail = req.params.email;
+    User.find({email: userEmail}, (error,userFound)=>{
+        if(error){
+			resp.status(422).send({ errors : [{title: 'Users Error!', detail: 'Could not find User with this email!' }]})
+        }else{
+            resp.json(userFound);
+        }
+    });
+});
+
+
 
 module.exports = router;
